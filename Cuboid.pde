@@ -18,18 +18,20 @@ class Cuboid {
     rotation[axe] = (rotation[axe] + turn)%4;
   }
   int count = 0;
-  void keyMove(char key_, int axe, PVector newPos){
-    if (keys[key_]){ //move left
-      angles[axe] += radians(10);
-      changePos(newPos);
-      count++;
-      if(count >= 9){
-        count = 0;
-        keys[key_] = false;
-        changeRotation(axe);
-        print(rotation[axe]);
-      }
+  boolean keyMove(int axe, int turn, PVector newPos){
+    boolean stop = false;
+    int dir = 1;
+    if(turn < 0)dir = -1;
+    angles[axe] += radians(10)*dir;
+    changePos(newPos);
+    count++;
+    if(count >= 9 * turn * dir){
+      count = 0;
+      stop = true;
+      changeRotation(axe, turn);
+      print(rotation[axe]);
     }
+    return stop;
   }
   
   void show(){

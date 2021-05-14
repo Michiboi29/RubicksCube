@@ -20,16 +20,10 @@ Cube cube = new Cube(3);
 void setup(){
   size(1200,900,P3D);
   cam = new PeasyCam(this, 400);
-  //cube.cubies[0][0][0].changePos(-25,-100,-75);
-  print(cube.cubies[0][0][0].rotation[Y]);
-  cube.cubies[0][0][0].changeRotation(Y);
-  print(cube.cubies[0][0][0].rotation[Y]);
-  cube.cubies[0][0][0].changeRotation(Y);
-  print(cube.cubies[0][0][0].rotation[Y]);
-  cube.cubies[0][0][0].changeRotation(Y);
-  print(cube.cubies[0][0][0].rotation[Y]);
-  cube.cubies[0][0][0].changeRotation(Y);
-  print(cube.cubies[0][0][0].rotation[Y]);
+  
+  //cube.cubies[1][0][0].changePos(-100,-200,-200);
+  //cube.cubies[0][1][0].changePos(-100,-100,-100);
+  //cube.cubies[0][0][1].changePos(-100,-200,-200);
 }
 
 void draw(){
@@ -39,7 +33,7 @@ void draw(){
 }
 
 void keyPressed(){
-  keys[key] = !keys[key];
+  keys[key] = true;
   }
  
 //void keyReleased(){

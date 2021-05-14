@@ -28,13 +28,18 @@ class Cube {
   }
   
   void move(){
-    moveRight('d');
+    if(keys['a']){
+      boolean stop = moveRight(2);
+      if(stop)keys['a'] = false;
+    }
   }
   
-  void moveRight(char key_){
-    cubies[0][0][0].keyMove(key_, X, cubies[2][0][0].pos);
-    cubies[2][0][0].keyMove(key_, Y, cubies[0][2][0].pos);
-    cubies[0][2][0].keyMove(key_, Z, cubies[0][0][2].pos);
+  boolean moveRight(int turn){
+    boolean stop;
+    stop = cubies[0][0][0].keyMove(X, turn, cubies[2][0][0].pos);
+    stop = cubies[2][0][0].keyMove(Y, turn, cubies[0][2][0].pos);
+    stop = cubies[0][2][0].keyMove(Z, turn, cubies[0][0][2].pos);
+    return stop;
   }
   
 }
