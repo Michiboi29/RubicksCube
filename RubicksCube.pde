@@ -2,6 +2,7 @@ import peasy.*;
 
 PeasyCam cam;
 boolean [] keys = new boolean[128];
+boolean [] moving = new boolean[128];
 
 // up, down, face, back, left, right
 final int YELLOW = 0, WHITE = 1, GREEN = 2, BLUE = 3, RED = 4, ORANGE = 5;
@@ -24,6 +25,7 @@ void setup(){
   //cube.cubies[1][0][0].changePos(-100,-200,-200);
   //cube.cubies[0][1][0].changePos(-100,-100,-100);
   //cube.cubies[0][0][1].changePos(-100,-200,-200);
+  
 }
 
 void draw(){

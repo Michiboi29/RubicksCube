@@ -29,7 +29,7 @@ class Cuboid {
       count = 0;
       stop = true;
       changeRotation(axe, turn);
-      print(rotation[axe]);
+      //print(rotation[axe]);
     }
     return stop;
   }
