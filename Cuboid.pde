@@ -10,7 +10,10 @@ class Cuboid {
   void changeRotation(int axe){
     rotation[axe] = (rotation[axe] + 1)%4;
   }
-  
+  void keyMove(){
+    if (keyPressed && key == 'a') //move left
+      changeRotation(0);
+  }
   void show(){
     fill(255);
     stroke(0);

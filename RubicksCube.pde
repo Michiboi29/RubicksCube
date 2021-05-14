@@ -1,6 +1,7 @@
 import peasy.*;
 
 PeasyCam cam;
+boolean [] keys = new boolean[128];
 
 // up, down, face, back, left, right
 final int YELLOW = 0, WHITE = 1, GREEN = 2, BLUE = 3, RED = 4, ORANGE = 5;
@@ -17,21 +18,30 @@ float len = 25;
 
 Cube cube = new Cube(3);
 void setup(){
-  size(1200,1200,P3D);
+  size(1200,900,P3D);
   cam = new PeasyCam(this, 400);
   cube.cubies[0][0][0].changePos(-25,-100,-75);
-  print(cube.cubies[0][0][0].rotation[1]);
-  cube.cubies[0][0][0].changeRotation(1);
-  print(cube.cubies[0][0][0].rotation[1]);
-  cube.cubies[0][0][0].changeRotation(1);
-  print(cube.cubies[0][0][0].rotation[1]);
-  cube.cubies[0][0][0].changeRotation(1);
-  print(cube.cubies[0][0][0].rotation[1]);
-  cube.cubies[0][0][0].changeRotation(1);
-  print(cube.cubies[0][0][0].rotation[1]);
+  print(cube.cubies[0][0][0].rotation[Y]);
+  cube.cubies[0][0][0].changeRotation(Y);
+  print(cube.cubies[0][0][0].rotation[Y]);
+  cube.cubies[0][0][0].changeRotation(Y);
+  print(cube.cubies[0][0][0].rotation[Y]);
+  cube.cubies[0][0][0].changeRotation(Y);
+  print(cube.cubies[0][0][0].rotation[Y]);
+  cube.cubies[0][0][0].changeRotation(Y);
+  print(cube.cubies[0][0][0].rotation[Y]);
 }
 
 void draw(){
   background(51);
   cube.show();
+  cube.cubies[0][0][0].keyMove();
 }
+
+void keyPressed(){
+  keys[key] = !keys[key];
+  }
+ 
+//void keyReleased(){
+//    keys[key] = false;
+//  }
