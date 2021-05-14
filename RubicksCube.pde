@@ -20,7 +20,7 @@ Cube cube = new Cube(3);
 void setup(){
   size(1200,900,P3D);
   cam = new PeasyCam(this, 400);
-  cube.cubies[0][0][0].changePos(-25,-100,-75);
+  //cube.cubies[0][0][0].changePos(-25,-100,-75);
   print(cube.cubies[0][0][0].rotation[Y]);
   cube.cubies[0][0][0].changeRotation(Y);
   print(cube.cubies[0][0][0].rotation[Y]);
@@ -35,7 +35,7 @@ void setup(){
 void draw(){
   background(51);
   cube.show();
-  cube.cubies[0][0][0].keyMove();
+  cube.move();
 }
 
 void keyPressed(){

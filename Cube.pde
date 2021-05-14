@@ -4,7 +4,6 @@ class Cube {
   Cube(int p_dim){
     dim = p_dim;
     cubies  = new Cuboid[dim][dim][dim];
-    
     for(int i = 0; i < dim; i++){
       for(int j = 0; j < dim; j++){
         for(int k = 0; k < dim; k++){
@@ -27,4 +26,15 @@ class Cube {
       }
     }
   }
+  
+  void move(){
+    moveRight('d');
+  }
+  
+  void moveRight(char key_){
+    cubies[0][0][0].keyMove(key_, X, cubies[2][0][0].pos);
+    cubies[2][0][0].keyMove(key_, Y, cubies[0][2][0].pos);
+    cubies[0][2][0].keyMove(key_, Z, cubies[0][0][2].pos);
+  }
+  
 }

@@ -6,23 +6,41 @@ class Cuboid {
   void changePos(float x, float y, float z){
     pos = new PVector(x,y,z);
   }
+  void changePos(PVector posV){
+    pos = posV;
+  }
   int[] rotation = {0, 0, 0};
+  float[] angles = {radians(0), radians(0), radians(0)};
   void changeRotation(int axe){
     rotation[axe] = (rotation[axe] + 1)%4;
   }
-  void keyMove(){
-    if (keyPressed && key == 'a') //move left
-      changeRotation(0);
+  void changeRotation(int axe, int turn){
+    rotation[axe] = (rotation[axe] + turn)%4;
   }
+  int count = 0;
+  void keyMove(char key_, int axe, PVector newPos){
+    if (keys[key_]){ //move left
+      angles[axe] += radians(10);
+      changePos(newPos);
+      count++;
+      if(count >= 9){
+        count = 0;
+        keys[key_] = false;
+        changeRotation(axe);
+        print(rotation[axe]);
+      }
+    }
+  }
+  
   void show(){
     fill(255);
     stroke(0);
     strokeWeight(8);
     pushMatrix();
     translate(pos.x, pos.y, pos.z);
-    rotateX(radians(90*rotation[0]));
-    rotateY(radians(90*rotation[1]));
-    rotateZ(radians(90*rotation[2]));
+    rotateX(angles[Y]);
+    rotateY(angles[Z]);
+    rotateZ(angles[X]);
     beginShape(QUADS);
     float l = len/2;
     
