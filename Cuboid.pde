@@ -6,7 +6,6 @@ class Cuboid {
   void changePos(float x, float y, float z){
     pos = new PVector(x,y,z);
   }
-  
   int[] rotation = {0, 0, 0};
   void changeRotation(int axe){
     rotation[axe] = (rotation[axe] + 1)%4;

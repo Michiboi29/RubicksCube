@@ -9,6 +9,8 @@ color[] colors = {
   #00cc00, #0066ff,
   #990000, #ff9900
 };
+// axes
+final int X = 0, Y = 1, Z = 2;
 
 //int dim = 3;
 float len = 25;
