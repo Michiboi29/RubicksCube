@@ -19,13 +19,20 @@ class Cuboid {
   }
   int count = 0;
   boolean keyMove(int axe, int turn, PVector newPos){
-    boolean stop = false;
-    int dir = 1;
-    if(turn < 0)dir = -1;
-    angles[axe] += radians(10)*dir;
-    changePos(newPos);
     count++;
-    if(count >= 9 * turn * dir){
+    boolean stop = false;
+    int maxCount = 9;
+    int dir = 1;
+    if(turn < 0) dir = -1;
+    angles[axe] += radians(10)*dir;
+    // dehardcode
+    float angle = angles[axe]*dir + atan2(newPos.z, newPos.x);
+    float r = sqrt(pow(pos.x,2)+pow(pos.z,2));
+    pos.x = cos(angle)*r;
+    //pos.y = (newPos.y-pos.y)/(maxCount*turn);
+    pos.z = sin(angle)*r;
+    
+    if(count >= maxCount * turn * dir){
       count = 0;
       stop = true;
       changeRotation(axe, turn);

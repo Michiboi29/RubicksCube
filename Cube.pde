@@ -49,9 +49,6 @@ class Cube {
     return stop;
   }
   boolean moveUP(int turn){
-    print(place[0][0][0].pos.x);
-    print(place[0][0][0].pos.y);
-    println(place[0][0][0].pos.z);
     boolean stop;
     // center
     stop = cubies[1][0][1].keyMove(Z, turn, cubies[1][0][1].pos);
@@ -65,9 +62,6 @@ class Cube {
     stop = cubies[2][0][1].keyMove(Z, turn, place[1][0][2].pos);
     stop = cubies[1][0][2].keyMove(Z, turn, place[0][0][1].pos);
     stop = cubies[0][0][1].keyMove(Z, turn, place[1][0][0].pos);
-    print(place[0][0][0].pos.x);
-    print(place[0][0][0].pos.y);
-    println(place[0][0][0].pos.z);
     return stop;
   }
   

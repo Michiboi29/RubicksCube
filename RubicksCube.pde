@@ -21,10 +21,17 @@ Cube cube = new Cube(3);
 void setup(){
   size(1200,900,P3D);
   cam = new PeasyCam(this, 400);
+  print(cube.cubies[0][0][0].pos.x);print(cube.cubies[0][0][0].pos.y);println(cube.cubies[0][0][0].pos.z);
+  print(cube.cubies[1][0][0].pos.x);print(cube.cubies[1][0][0].pos.y);println(cube.cubies[1][0][0].pos.z);
+  print(cube.cubies[0][0][1].pos.x);print(cube.cubies[0][0][1].pos.y);println(cube.cubies[0][0][1].pos.z);
+  print(cube.cubies[1][0][1].pos.x);print(cube.cubies[1][0][1].pos.y);println(cube.cubies[1][0][1].pos.z);
+  print(cube.cubies[1][1][1].pos.x);print(cube.cubies[1][1][1].pos.y);println(cube.cubies[1][1][1].pos.z);
   
   //cube.cubies[1][0][0].changePos(-100,-200,-200);
   //cube.cubies[0][1][0].changePos(-100,-100,-100);
   //cube.cubies[0][0][1].changePos(-100,-200,-200);
+  
+  
   
 }
 
