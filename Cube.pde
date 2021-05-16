@@ -32,11 +32,17 @@ class Cube {
   
   void move(){
     if(keys['a']){
-      boolean stop = moveUP(-1);
+      int [] center = {4,3,4};
+      int [][] corners = {{0,3,0},{2,3,0},{2,3,2},{0,3,2}};
+      int [][] edges = {{1,3,0},{2,3,1},{1,3,2},{0,3,1}};
+      boolean stop = move_(Z, -1, center, corners, edges);
       if(stop)keys['a'] = false;
     }
     if(keys['d']){
-      boolean stop = moveUP(1);
+      int [] center = {4,3,4};
+      int [][] corners = {{0,3,0},{2,3,0},{2,3,2},{0,3,2}};
+      int [][] edges = {{1,3,0},{2,3,1},{1,3,2},{0,3,1}};
+      boolean stop = move_(Z, 1, center, corners, edges);
       if(stop)keys['d'] = false;
     }
   }
@@ -48,27 +54,56 @@ class Cube {
     stop = cubies[0][2][0].keyMove(Z, turn, cubies[0][0][2].pos);
     return stop;
   }
-  boolean moveUP(int turn){
+  boolean reversed = false;
+  boolean move_(int axe, int turn, int[] center, int[][] corners, int[][] edges){
     boolean stop = false;
+    //dehardcode
+    //if(turn < 0 && !reversed){ 
+    //  //corners = reverse(corners); 
+      
+    //  corners[1] = corners[3];
+    //  corners[3] = corners[1];
+    //  //edges = reverse(edges);
+    //  edges[1] = edges[3];
+    //  edges[3] = edges[1];
+    //  reversed = true;
+    //}
+    int [] val = new int[5];
+    val[3] = 0;
+    val[4] = (dim-1)/2;
     // center
-    if(dim%2 != 0 ) {
-      stop = cubies[(dim-1)/2][0][(dim-1)/2].keyMove(Z, turn, cubies[(dim-1)/2][0][(dim-1)/2].posT);
+    if(dim%2 != 0 ){
+      Cuboid center1 = cubies[val[center[0]]][val[center[1]]][val[center[2]]];
+      stop = center1.keyMove(axe, turn, center1.posT);
     }
-    // corners
+    // for all within layers
     for(int i = 1; i < dim - 1; i++){
-      stop = cubies[i-1][0][i-1].keyMove(Z, turn, place[dim-1][0][i-1].posT);
-      stop = cubies[dim-1][0][i-1].keyMove(Z, turn, place[dim-1][0][dim-1].posT);
-      stop = cubies[dim-1][0][dim-1].keyMove(Z, turn, place[i-1][0][dim-1].posT);
-      stop = cubies[i-1][0][dim-1].keyMove(Z, turn, place[i-1][0][i-1].posT);
+      val[2] = dim-i;
+      val[0] = i-1;
+      // corners
+      Cuboid corner0 = cubies[val[corners[0][0]]][val[corners[0][1]]][val[corners[0][2]]];
+      Cuboid corner1 = cubies[val[corners[1][0]]][val[corners[1][1]]][val[corners[1][2]]];
+      Cuboid corner2 = cubies[val[corners[2][0]]][val[corners[2][1]]][val[corners[2][2]]];
+      Cuboid corner3 = cubies[val[corners[3][0]]][val[corners[3][1]]][val[corners[3][2]]];
+      stop = corner0.keyMove(axe, turn, corner1.posT);
+      stop = corner1.keyMove(axe, turn, corner2.posT);
+      stop = corner2.keyMove(axe, turn, corner3.posT);
+      stop = corner3.keyMove(axe, turn, corner0.posT);
+      
+      for(int j = i; j < dim - i; j++){
+        val[1] = j;
+        // edges
+        Cuboid edge0 = cubies[val[edges[0][0]]][val[edges[0][1]]][val[edges[0][2]]];
+        Cuboid edge1 = cubies[val[edges[1][0]]][val[edges[1][1]]][val[edges[1][2]]];
+        Cuboid edge2 = cubies[val[edges[2][0]]][val[edges[2][1]]][val[edges[2][2]]];
+        Cuboid edge3 = cubies[val[edges[3][0]]][val[edges[3][1]]][val[edges[3][2]]];
+        stop = edge0.keyMove(axe, turn, edge1.posT);
+        stop = edge1.keyMove(axe, turn, edge2.posT);
+        stop = edge2.keyMove(axe, turn, edge3.posT);
+        stop = edge3.keyMove(axe, turn, edge0.posT);
+      }
     }
-    
-    // edges
-    for(int i = 1; i < dim - 1; i++){
-      stop = cubies[1][0][0].keyMove(Z, turn, place[2][0][1].posT);
-      stop = cubies[2][0][1].keyMove(Z, turn, place[1][0][2].posT);
-      stop = cubies[1][0][2].keyMove(Z, turn, place[0][0][1].posT);
-      stop = cubies[0][0][1].keyMove(Z, turn, place[1][0][0].posT);
-    }
+    if(stop)reversed=false;
     return stop;
   }
   

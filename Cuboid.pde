@@ -26,14 +26,29 @@ class Cuboid {
     int maxCount = 9;
     int dir = 1;
     if(turn < 0) dir = -1;
-    angles[axe] += radians(10)*dir;
-    // dehardcode
-    float angle = angles[axe]*dir + atan2(newPos.z, newPos.x);
-    float r = sqrt(pow(pos.x,2)+pow(pos.z,2));
-    pos.x = cos(angle)*r;
-    //pos.y = (newPos.y-pos.y)/(maxCount*turn);
-    pos.z = sin(angle)*r;
-    
+    // rotate
+    angles[axe] += radians(90/maxCount)*dir;
+    // move
+    // dehardcode depand de axe !!TODO check si axes X et Y sont en odre cos /sin
+    if(axe == axe){
+      float angle = angles[axe]*dir + atan2(newPos.z, newPos.x);
+      float r = sqrt(pow(pos.x,2)+pow(pos.z,2));
+      pos.x = cos(angle)*r*dir;
+      pos.z = sin(angle)*r*dir;
+    }
+    else if(axe == X){
+      float angle = angles[axe]*dir + atan2(newPos.y, newPos.x);
+      float r = sqrt(pow(pos.x,2)+pow(pos.y,2));
+      pos.x = cos(angle)*r*dir;
+      pos.y = sin(angle)*r*dir;
+    }
+    else if(axe == Y){
+      float angle = angles[axe]*dir + atan2(newPos.z, newPos.y);
+      float r = sqrt(pow(pos.y,2)+pow(pos.z,2));
+      pos.y = cos(angle)*r*dir;
+      pos.z = sin(angle)*r*dir;
+    }
+    // end move and rotate
     if(count >= maxCount * turn * dir){
       count = 0;
       stop = true;
@@ -50,7 +65,7 @@ class Cuboid {
     pushMatrix();
     translate(pos.x, pos.y, pos.z);
     rotateX(angles[Y]);
-    rotateY(angles[Z]);
+    rotateY(angles[axe]);
     rotateZ(angles[X]);
     beginShape(QUADS);
     float l = len/2;
