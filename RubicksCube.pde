@@ -17,7 +17,7 @@ final int X = 0, Y = 1, Z = 2;
 //int dim = 3;
 float len = 25;
 
-Cube cube = new Cube(3);
+Cube cube = new Cube(5);
 void setup(){
   size(1200,900,P3D);
   cam = new PeasyCam(this, 400);

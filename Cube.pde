@@ -49,19 +49,26 @@ class Cube {
     return stop;
   }
   boolean moveUP(int turn){
-    boolean stop;
+    boolean stop = false;
     // center
-    stop = cubies[1][0][1].keyMove(Z, turn, cubies[1][0][1].pos);
+    if(dim%2 != 0 ) {
+      stop = cubies[(dim-1)/2][0][(dim-1)/2].keyMove(Z, turn, cubies[(dim-1)/2][0][(dim-1)/2].posT);
+    }
     // corners
-    stop = cubies[0][0][0].keyMove(Z, turn, place[2][0][0].pos);
-    stop = cubies[2][0][0].keyMove(Z, turn, place[2][0][2].pos);
-    stop = cubies[2][0][2].keyMove(Z, turn, place[0][0][2].pos);
-    stop = cubies[0][0][2].keyMove(Z, turn, place[0][0][0].pos);
+    for(int i = 1; i < dim - 1; i++){
+      stop = cubies[i-1][0][i-1].keyMove(Z, turn, place[dim-1][0][i-1].posT);
+      stop = cubies[dim-1][0][i-1].keyMove(Z, turn, place[dim-1][0][dim-1].posT);
+      stop = cubies[dim-1][0][dim-1].keyMove(Z, turn, place[i-1][0][dim-1].posT);
+      stop = cubies[i-1][0][dim-1].keyMove(Z, turn, place[i-1][0][i-1].posT);
+    }
+    
     // edges
-    stop = cubies[1][0][0].keyMove(Z, turn, place[2][0][1].pos);
-    stop = cubies[2][0][1].keyMove(Z, turn, place[1][0][2].pos);
-    stop = cubies[1][0][2].keyMove(Z, turn, place[0][0][1].pos);
-    stop = cubies[0][0][1].keyMove(Z, turn, place[1][0][0].pos);
+    for(int i = 1; i < dim - 1; i++){
+      stop = cubies[1][0][0].keyMove(Z, turn, place[2][0][1].posT);
+      stop = cubies[2][0][1].keyMove(Z, turn, place[1][0][2].posT);
+      stop = cubies[1][0][2].keyMove(Z, turn, place[0][0][1].posT);
+      stop = cubies[0][0][1].keyMove(Z, turn, place[1][0][0].posT);
+    }
     return stop;
   }
   

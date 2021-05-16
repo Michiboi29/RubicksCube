@@ -1,7 +1,9 @@
 class Cuboid {
   PVector pos;
+  PVector posT;
   Cuboid(float x, float y, float z){
     pos = new PVector(x,y,z);
+    posT = new PVector(x,y,z);
   }
   void changePos(float x, float y, float z){
     pos = new PVector(x,y,z);
