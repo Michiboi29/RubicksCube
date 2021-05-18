@@ -1,9 +1,18 @@
 class Cuboid {
   PVector pos;
   PVector posT;
-  Cuboid(float x, float y, float z){
+  int[] indexs = new int[3];
+  Cuboid place_ptr;
+  Cuboid(float x, float y, float z, int i, int j, int k){
     pos = new PVector(x,y,z);
     posT = new PVector(x,y,z);
+    indexs[0] = i;
+    indexs[1] = j;
+    indexs[2] = k;
+  }
+  Cuboid(Cuboid c){
+    this.pos = new PVector(c.pos.x,c.pos.y,c.pos.z);
+    this.posT = new PVector(c.posT.x,c.posT.y,c.posT.z);
   }
   void changePos(float x, float y, float z){
     pos = new PVector(x,y,z);
@@ -30,30 +39,32 @@ class Cuboid {
     angles[axe] += radians(90/maxCount)*dir;
     // move
     // dehardcode depand de axe !!TODO check si axes X et Y sont en odre cos /sin
-    if(axe == axe){
-      float angle = angles[axe]*dir + atan2(newPos.z, newPos.x);
+    if(axe == Z){
+      float angle = (angles[axe])*-1 + atan2(newPos.z, newPos.x);
       float r = sqrt(pow(pos.x,2)+pow(pos.z,2));
-      pos.x = cos(angle)*r*dir;
-      pos.z = sin(angle)*r*dir;
+      pos.x = cos(angle)*r;
+      pos.z = sin(angle)*r;
     }
     else if(axe == X){
-      float angle = angles[axe]*dir + atan2(newPos.y, newPos.x);
+      float angle = angles[axe] + atan2(newPos.y, newPos.x);
       float r = sqrt(pow(pos.x,2)+pow(pos.y,2));
-      pos.x = cos(angle)*r*dir;
-      pos.y = sin(angle)*r*dir;
+      pos.x = cos(angle)*r;
+      pos.y = sin(angle)*r;
     }
     else if(axe == Y){
-      float angle = angles[axe]*dir + atan2(newPos.z, newPos.y);
+      float angle = angles[axe] + atan2(newPos.z, newPos.y);
       float r = sqrt(pow(pos.y,2)+pow(pos.z,2));
-      pos.y = cos(angle)*r*dir;
-      pos.z = sin(angle)*r*dir;
+      pos.y = cos(angle)*r;
+      pos.z = sin(angle)*r;
     }
     // end move and rotate
-    if(count >= maxCount * turn * dir){
+    println(count);
+    if(count == maxCount * turn * dir){
       count = 0;
       stop = true;
       changeRotation(axe, turn);
-      //print(rotation[axe]);
+      print(indexs[0]);print(indexs[1]);println(indexs[2]);
+      print(rotation[X]);print(rotation[Y]);println(rotation[Z]);
     }
     return stop;
   }
@@ -65,7 +76,7 @@ class Cuboid {
     pushMatrix();
     translate(pos.x, pos.y, pos.z);
     rotateX(angles[Y]);
-    rotateY(angles[axe]);
+    rotateY(angles[Z]);
     rotateZ(angles[X]);
     beginShape(QUADS);
     float l = len/2;
