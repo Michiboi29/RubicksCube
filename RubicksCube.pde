@@ -6,6 +6,7 @@ int[] moving;
 
 // up, down, face, back, left, right
 final int YELLOW = 0, WHITE = 1, GREEN = 2, BLUE = 3, RED = 4, ORANGE = 5;
+final int U = 0, D = 1, F = 2, B = 3, L = 4, R = 5;
 color[] colors = {
   #cccc00, #ffffff,
   #00cc00, #0066ff,
@@ -17,7 +18,7 @@ final int X = 0, Y = 1, Z = 2;
 //int dim = 3;
 float len = 25;
 
-Cube cube = new Cube(10);
+Cube cube = new Cube(6);
 void setup(){
   size(900,700,P3D);
   cam = new PeasyCam(this, 400);
@@ -34,8 +35,23 @@ void setup(){
 
 void draw(){
   background(51);
+  draw_axes();
   cube.show();
   cube.move();
+}
+
+void draw_axes()
+{
+    //grenn X
+    stroke(255,0,0);
+    line(0,-250,0,250);
+    // red Y
+    stroke(0,250,0);
+    line(-250,0,250,0);
+    // blue Z
+    stroke(0,0,255);
+    line(0,0,-250,0,0,250);
+    stroke(0);
 }
 
 // try catch shift : ArrayIndexOutOfBoundsException: 65535
