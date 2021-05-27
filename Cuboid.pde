@@ -3,7 +3,11 @@ class Cuboid {
   final float[] posT;
   int[] indexs = new int[3];
   Cuboid place_ptr;
-  color[] colors_face;
+  final private color[] colors_face = {
+    #cccc00, #ffffff,
+    #00cc00, #0066ff,
+    #990000, #ff9900
+  };
   Cuboid(float x, float y, float z, int i, int j, int k){
     this.pos = new PVector(x,y,z);
     float[] tmp = {x,y,z};
@@ -11,7 +15,6 @@ class Cuboid {
     this.indexs[0] = i;
     this.indexs[1] = j;
     this.indexs[2] = k;
-    colors_face = colors;
   }
   //Cuboid(Cuboid c){
   //  this.pos = new PVector(c.pos.x,c.pos.y,c.pos.z);
@@ -54,11 +57,42 @@ class Cuboid {
   }
   void unrotate(){
     anglesRotation[X] = 0;
-    anglesRotation[X] = 0;
-    anglesRotation[X] = 0;
+    anglesRotation[Y] = 0;
+    anglesRotation[Z] = 0;
   }
-  void changeColor(){
-    
+  void changeColor(int axe, int turn){
+    int [] colorRotation = new int[4];
+    if(axe == Z){
+      
+      int[] rot = {F, R, B, L};
+      if (turn < 0){
+        rot = reverseArr(rot);
+      }
+      colorRotation = rot;
+    }
+    else if(axe == X){
+      int[] rot = {U, R, D, L};
+      if (turn < 0){
+        rot = reverseArr(rot);
+      }
+      colorRotation = rot;
+    }
+    else if(axe == Y){
+      int[] rot = {U, B, D, F};
+      if (turn < 0){
+        rot = reverseArr(rot);
+      }
+      colorRotation = rot;
+    }
+    color tmp0 = colors_face[colorRotation[0]];
+    color tmp1 = colors_face[colorRotation[1]];
+    color tmp2 = colors_face[colorRotation[2]];
+    color tmp3 = colors_face[colorRotation[3]];
+    this.colors_face[colorRotation[0]] = tmp1;
+    this.colors_face[colorRotation[1]] = tmp2;
+    this.colors_face[colorRotation[2]] = tmp3;
+    this.colors_face[colorRotation[3]] = tmp0;
+    print(indexs[0]);print(indexs[1]);print(indexs[2]);printArray(colorRotation);
   }
   
   int count = 0;
@@ -72,7 +106,6 @@ class Cuboid {
     // rotate
     anglesRotation[axe] += radians(90/maxCount)*dir*-1;
     // move
-    // dehardcode depand de axe !!TODO check si axes X et Y sont en odre cos /sin
     if(axe == Z){
       float angleMove = (anglesRotation[axe]) + atan2(newPos[0], newPos[2]);
       float r = sqrt(pow(pos.x,2)+pow(pos.z,2));
@@ -95,13 +128,13 @@ class Cuboid {
     //print(pos);println(newPos);
     //print(indexs[0]);print(indexs[1]);println(indexs[2]);
     if(count == maxCount * turn * dir){
-      println("stopo");
+      //println("stopo");
       count = 0;
       stop = true;
       changeRotation(axe, turn);
       changePos(newPos);
       unrotate();
-      changeColor();
+      changeColor(axe, turn);
       //print(rotation[X]);print(rotation[Y]);println(rotation[Z]);
     }
     return stop;
@@ -114,9 +147,6 @@ class Cuboid {
     pushMatrix();
     translate(pos.x, pos.y, pos.z);
     // change fucntion to rotate depends on previus rotation
-    rotateZ(anglesRotation[X]);
-    rotateX(anglesRotation[Y]);
-    rotateY(anglesRotation[Z]);
     rotating();
     
     beginShape(QUADS);
@@ -165,9 +195,9 @@ class Cuboid {
   }
   
   void rotating(){
-    //rotateZ(anglesRotation[X]);
-    //rotateX(anglesRotation[Y]);
-    //rotateY(anglesRotation[Z]);
+    rotateZ(anglesRotation[X]);
+    rotateX(anglesRotation[Y]);
+    rotateY(anglesRotation[Z]);
   }
 
 }

@@ -7,7 +7,7 @@ int[] moving;
 // up, down, face, back, left, right
 final int YELLOW = 0, WHITE = 1, GREEN = 2, BLUE = 3, RED = 4, ORANGE = 5;
 final int U = 0, D = 1, F = 2, B = 3, L = 4, R = 5;
-color[] colors = {
+final color[] colors = {
   #cccc00, #ffffff,
   #00cc00, #0066ff,
   #990000, #ff9900
@@ -62,3 +62,22 @@ void keyPressed(){
 //void keyReleased(){
 //    keys[key] = false;
 //  }
+
+/* function that reverses dir of array for lenght of 4 */
+static int[] reverseArr(int a[]){
+    int n = 4;
+    int [] b = new int[n];
+    
+    b[0] = a[0];
+    b[1] = a[3];
+    b[2] = a[2];
+    b[3] = a[1];
+    
+    /*printing the reversed array*/
+    System.out.println("Reversed array is: \n");
+    for (int k = 0; k < n; k++) {
+        System.out.println(b[k]);
+    }
+    
+    return b;
+}

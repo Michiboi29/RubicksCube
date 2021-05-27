@@ -201,9 +201,10 @@ class Cube {
       stop = corner2.place_ptr.keyMove(axe, turn, corner3.posT);
       stop = corner3.place_ptr.keyMove(axe, turn, corner0.posT);
       //print(i);println(stop);
-      print(i);print(corner0.posT[0],corner0.posT[1],corner0.posT[2]);print(corner0.place_ptr.pos);print(corner1.posT[0],corner1.posT[1],corner1.posT[2]);print(" |rotate| (");
-      print(corner0.place_ptr.rotation[X]);print(corner0.place_ptr.rotation[Y]);print(corner0.place_ptr.rotation[Z]);print(") (");
-      print(corner1.place_ptr.rotation[X]);print(corner1.place_ptr.rotation[Y]);print(corner1.place_ptr.rotation[Z]);println(") ");
+      //print(i);print(corner0.posT[0],corner0.posT[1],corner0.posT[2]);print(corner0.place_ptr.pos);print(corner1.posT[0],corner1.posT[1],corner1.posT[2]);print(" |rotate| (");
+      //print(corner0.place_ptr.rotation[X]);print(corner0.place_ptr.rotation[Y]);print(corner0.place_ptr.rotation[Z]);print(") (");
+      //print(corner1.place_ptr.rotation[X]);print(corner1.place_ptr.rotation[Y]);print(corner1.place_ptr.rotation[Z]);println(") ");
+      //printArray(corner0.colors_face);
       if(stop){
         //println("stop");
         
