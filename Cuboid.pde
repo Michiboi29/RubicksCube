@@ -35,25 +35,25 @@ class Cuboid {
   int[]rotationList = {};
   float[] anglesRotation = {radians(0), radians(0), radians(0)};
   void changeRotation(int axe){
-    if(this.rotation[0] == 0 && this.rotation[1] == 0 && this.rotation[2] == 0 && this.rotationList.length > 0){
-      int [] tmp = {};
-      this.rotationList = tmp;
-    }
+    //if(this.rotation[0] == 0 && this.rotation[1] == 0 && this.rotation[2] == 0 && this.rotationList.length > 0){
+    //  int [] tmp = {};
+    //  this.rotationList = tmp;
+    //}
     this.rotation[axe] = (rotation[axe] + 1)%4;
-    this.rotationList = append(this.rotationList, axe);
+    //this.rotationList = append(this.rotationList, axe);
   }
   void changeRotation(int axe, int turn){
-    if(this.rotation[0] == 0 && this.rotation[1] == 0 && this.rotation[2] == 0 && this.rotationList.length > 0){
-      int [] tmp = {};
-      this.rotationList = tmp;
-    }
+    //if(this.rotation[0] == 0 && this.rotation[1] == 0 && this.rotation[2] == 0 && this.rotationList.length > 0){
+    //  int [] tmp = {};
+    //  this.rotationList = tmp;
+    //}
     this.rotation[axe] = (rotation[axe] + turn)%4;
     turn = turn%4;
     if (turn == -2)turn = 2;
     if (turn == -1)turn = 3;
-    for (int i = 0; i<turn; i++){
-      this.rotationList = append(this.rotationList, axe);
-    }
+    //for (int i = 0; i<turn; i++){
+    //  this.rotationList = append(this.rotationList, axe);
+    //}
   }
   void unrotate(){
     anglesRotation[X] = 0;
@@ -92,7 +92,7 @@ class Cuboid {
     this.colors_face[colorRotation[1]] = tmp2;
     this.colors_face[colorRotation[2]] = tmp3;
     this.colors_face[colorRotation[3]] = tmp0;
-    print(indexs[0]);print(indexs[1]);print(indexs[2]);printArray(colorRotation);
+    //print(indexs[0]);print(indexs[1]);print(indexs[2]);printArray(colorRotation);
   }
   
   int count = 0;

@@ -33,133 +33,109 @@ class Cube {
     }
   }
   
-  // function to check if mooving
-  boolean arrayIsEqual(int[] array1, int[] array2){
-    //boolean isequal = false;
-    if(array1 == null)return false;
-    if(array1.length != array2.length)return false;
-    for(int i = 0; i<array1.length; i++){
-      if(array1[i] != array2[i])return false;
-    }
-    return true;
-  }
-  
   void move(){
-    //int [] centerTest = {4,3,4, 1};
-    //int [] centerTest1 = {4,3,4, -1};
-    //if(keys['a'] && ((arrayIsEqual(moving,centerTest)) || (moving == null))){
-      
-    // up
-    if(keys['e']){
-      int[] center = {4,3,4};
-      //moving = append(center,-1);
-      int [][] corners = {{0,3,0},{0,3,2},{2,3,2},{2,3,0}};
-      int [][] edges = {{1,3,0},{0,3,1},{1,3,2},{2,3,1}};
-      boolean stop = move_(Z, -1, center, corners, edges);
-      if(stop){
-        keys['e'] = false;
-        //moving = null;
+    if(!moveBuffer.isEmpty()){
+      int move = moveBuffer.get(0);
+      // up
+      if(move == U+1){
+        int[] center = {4,3,4};
+        //moving = append(center,-1);
+        int [][] corners = {{0,3,0},{0,3,2},{2,3,2},{2,3,0}};
+        int [][] edges = {{1,3,0},{0,3,1},{1,3,2},{2,3,1}};
+        boolean stop = move_(Z, -1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
       }
-    }
-    // up reverse
-    if(keys['w']){
-      int [] center = {4,3,4};
-      //moving = append(center,1);
-      int [][] corners = {{0,3,0},{2,3,0},{2,3,2},{0,3,2}};
-      int [][] edges = {{1,3,0},{2,3,1},{1,3,2},{0,3,1}};
-      boolean stop = move_(Z, 1, center, corners, edges);
-      if(stop){
-        keys['w'] = false;
-        //moving = null;
+      // up reverse
+      if(move == -1*(U+1)){
+        int [] center = {4,3,4};
+        //moving = append(center,1);
+        int [][] corners = {{0,3,0},{2,3,0},{2,3,2},{0,3,2}};
+        int [][] edges = {{1,3,0},{2,3,1},{1,3,2},{0,3,1}};
+        boolean stop = move_(Z, 1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
       }
-    }
-    // down
-    if(keys['d']){
-      int[] center = {4,5,4};
-      //moving = append(center,-1);
-      int [][] corners = {{0,5,0},{0,5,2},{2,5,2},{2,5,0}};
-      int [][] edges = {{1,5,0},{0,5,1},{1,5,2},{2,5,1}};
-      boolean stop = move_(Z, -1, center, corners, edges);
-      if(stop){
-        keys['d'] = false;
-        //moving = null;
+      // down
+      if(move == D+1){
+        int[] center = {4,5,4};
+        //moving = append(center,-1);
+        int [][] corners = {{0,5,0},{0,5,2},{2,5,2},{2,5,0}};
+        int [][] edges = {{1,5,0},{0,5,1},{1,5,2},{2,5,1}};
+        boolean stop = move_(Z, -1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
       }
-    }
-    // down reverse
-    if(keys['s']){
-      int [] center = {4,5,4};
-      //moving = append(center,1);
-      int [][] corners = {{0,5,0},{2,5,0},{2,5,2},{0,5,2}};
-      int [][] edges = {{1,5,0},{2,5,1},{1,5,2},{0,5,1}};
-      boolean stop = move_(Z, 1, center, corners, edges);
-      if(stop){
-        keys['s'] = false;
-        //moving = null;
+      // down reverse
+      if(move == -1*(D+1)){
+        int [] center = {4,5,4};
+        //moving = append(center,1);
+        int [][] corners = {{0,5,0},{2,5,0},{2,5,2},{0,5,2}};
+        int [][] edges = {{1,5,0},{2,5,1},{1,5,2},{0,5,1}};
+        boolean stop = move_(Z, 1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
       }
-    }
-    // face
-    if(keys['c']){
-      int [] center = {4,4,5};
-      int [][] corners = {{0,0,5},{0,2,5},{2,2,5},{2,0,5}};
-      int [][] edges = {{1,0,5},{0,1,5},{1,2,5},{2,1,5}};
-      boolean stop = move_(X, 1, center, corners, edges);
-      if(stop)keys['c'] = false;
-    }
-    // face reverse
-    if(keys['v']){
-      int [] center = {4,4,5};
-      int [][] corners = {{0,0,5},{2,0,5},{2,2,5},{0,2,5}};
-      int [][] edges = {{1,0,5},{2,1,5},{1,2,5},{0,1,5}};
-      boolean stop = move_(X, -1, center, corners, edges);
-      if(stop)keys['v'] = false;
-    }
-    // back
-    if(keys['z']){
-      int [] center = {4,4,3};
-      int [][] corners = {{0,0,3},{0,2,3},{2,2,3},{2,0,3}};
-      int [][] edges = {{1,0,3},{0,1,3},{1,2,3},{2,1,3}};
-      boolean stop = move_(X, 1, center, corners, edges);
-      if(stop)keys['z'] = false;
-    }
-    // back reverse
-    if(keys['x']){
-      int [] center = {4,4,3};
-      int [][] corners = {{0,0,3},{2,0,3},{2,2,3},{0,2,3}};
-      int [][] edges = {{1,0,3},{2,1,3},{1,2,3},{0,1,3}};
-      boolean stop = move_(X, -1, center, corners, edges);
-      if(stop)keys['x'] = false;
-    }
-    // right
-    if(keys['f']){
-      int [] center = {5,4,4};
-      int [][] corners = {{5,0,0},{5,0,2},{5,2,2},{5,2,0}};
-      int [][] edges = {{5,1,0},{5,0,1},{5,1,2},{5,2,1}};
-      boolean stop = move_(Y, 1, center, corners, edges);
-      if(stop)keys['f'] = false;
-    }
-    // right reverse
-    if(keys['r']){
-      int [] center = {5,4,4};
-      int [][] corners = {{5,0,0},{5,2,0},{5,2,2},{5,0,2}};
-      int [][] edges = {{5,1,0},{5,2,1},{5,1,2},{5,0,1}};
-      boolean stop = move_(Y, -1, center, corners, edges);
-      if(stop)keys['r'] = false;
-    }
-    // left
-    if(keys['a']){
-      int [] center = {3,4,4};
-      int [][] corners = {{3,0,0},{3,0,2},{3,2,2},{3,2,0}};
-      int [][] edges = {{3,1,0},{3,0,1},{3,1,2},{3,2,1}};
-      boolean stop = move_(Y, 1, center, corners, edges);
-      if(stop)keys['a'] = false;
-    }
-    // right reverse
-    if(keys['q']){
-      int [] center = {3,4,4};
-      int [][] corners = {{3,0,0},{3,2,0},{3,2,2},{3,0,2}};
-      int [][] edges = {{3,1,0},{3,2,1},{3,1,2},{3,0,1}};
-      boolean stop = move_(Y, -1, center, corners, edges);
-      if(stop)keys['q'] = false;
+      // face
+      if(move == F+1){
+        int [] center = {4,4,5};
+        int [][] corners = {{0,0,5},{0,2,5},{2,2,5},{2,0,5}};
+        int [][] edges = {{1,0,5},{0,1,5},{1,2,5},{2,1,5}};
+        boolean stop = move_(X, 1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
+      }
+      // face reverse
+      if(move == -1*(F+1)){
+        int [] center = {4,4,5};
+        int [][] corners = {{0,0,5},{2,0,5},{2,2,5},{0,2,5}};
+        int [][] edges = {{1,0,5},{2,1,5},{1,2,5},{0,1,5}};
+        boolean stop = move_(X, -1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
+      }
+      // back
+      if(move == B+1){
+        int [] center = {4,4,3};
+        int [][] corners = {{0,0,3},{0,2,3},{2,2,3},{2,0,3}};
+        int [][] edges = {{1,0,3},{0,1,3},{1,2,3},{2,1,3}};
+        boolean stop = move_(X, 1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
+      }
+      // back reverse
+      if(move == -1*(B+1)){
+        int [] center = {4,4,3};
+        int [][] corners = {{0,0,3},{2,0,3},{2,2,3},{0,2,3}};
+        int [][] edges = {{1,0,3},{2,1,3},{1,2,3},{0,1,3}};
+        boolean stop = move_(X, -1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
+      }
+      // right
+      if(move == R+1){
+        int [] center = {5,4,4};
+        int [][] corners = {{5,0,0},{5,0,2},{5,2,2},{5,2,0}};
+        int [][] edges = {{5,1,0},{5,0,1},{5,1,2},{5,2,1}};
+        boolean stop = move_(Y, 1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
+      }
+      // right reverse
+      if(move == -1*(R+1)){
+        int [] center = {5,4,4};
+        int [][] corners = {{5,0,0},{5,2,0},{5,2,2},{5,0,2}};
+        int [][] edges = {{5,1,0},{5,2,1},{5,1,2},{5,0,1}};
+        boolean stop = move_(Y, -1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
+      }
+      // left
+      if(move == L+1){
+        int [] center = {3,4,4};
+        int [][] corners = {{3,0,0},{3,0,2},{3,2,2},{3,2,0}};
+        int [][] edges = {{3,1,0},{3,0,1},{3,1,2},{3,2,1}};
+        boolean stop = move_(Y, 1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
+      }
+      // left reverse
+      if(move == -1*(L+1)){
+        int [] center = {3,4,4};
+        int [][] corners = {{3,0,0},{3,2,0},{3,2,2},{3,0,2}};
+        int [][] edges = {{3,1,0},{3,2,1},{3,1,2},{3,0,1}};
+        boolean stop = move_(Y, -1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
+      }
     }
   }
   
