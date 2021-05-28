@@ -4,12 +4,13 @@ PeasyCam cam;
 //boolean [] keys = new boolean[128];
 
 // dimmentions
-int DIM = 3;
+int DIM = 2;
 float len = 25;
 
 // up, down, face, back, left, right
 final int YELLOW = 0, WHITE = 1, GREEN = 2, BLUE = 3, RED = 4, ORANGE = 5;
 final int U = 0, D = 1, F = 2, B = 3, L = 4, R = 5, MX = 6, MY = MX + DIM - 2, MZ = MY + DIM - 2;
+int mid = 0;
 final color[] colors = {
   #cccc00, #ffffff,
   #00cc00, #0066ff,
@@ -132,7 +133,51 @@ void keyPressed(){
   if(key=='q'){
     moveBuffer.add(-1*(L+1));
   }
-  System.out.print(moveBuffer);
+  if (DIM > 2){
+    // mid X
+    if(key=='u'){
+      moveBuffer.add(1*(MX+mid+1));
+    }
+    // mid X reverse
+    if(key=='j'){
+      moveBuffer.add(-1*(MX+mid+1));
+    }
+    // mid Y
+    if(key=='y'){
+      moveBuffer.add(1*(MY+mid+1));
+    }
+    // mid Y reverse
+    if(key=='h'){
+      moveBuffer.add(-1*(MY+mid+1));
+    }
+    // mid Z
+    if(key=='i'){
+      moveBuffer.add(1*(MZ+mid+1));
+    }
+    // mid Z reverse
+    if(key=='k'){
+      moveBuffer.add(-1*(MZ+mid+1));
+    }
+    // change mid row
+    if(key==' '){
+      int n = DIM - 2;
+      if(n > 0) mid = (mid + 1)%n;
+      System.out.print(" n: "+n);
+    }
+    System.out.print(" mid: "+mid);
+  }
+  
+  // scramble
+  if(key=='m'){
+    int n = DIM*15;
+    for (int i = 0; i < n; i++) {
+      // int r = (int)random(MZ+DIM-2);
+      int r = (int)random(R) + 1;
+      moveBuffer.add(r);
+    }
+  }
+ 
+  System.out.print(" buffer: "+moveBuffer);
 }
 
 /* function that reverses dir of array for lenght of 4 */

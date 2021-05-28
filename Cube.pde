@@ -136,6 +136,30 @@ class Cube {
         boolean stop = move_(Y, -1, center, corners, edges);
         if(stop)moveBuffer.remove(0);
       }
+      // mid X
+      if(move == MX+mid+1){
+        moveBuffer.remove(0);
+      }
+      // mid X reverse
+      if(move == -1*(MX+mid+1)){
+        moveBuffer.remove(0);
+      }
+      // mid Y
+      if(move == MY+mid+1){
+        moveBuffer.remove(0);
+      }
+      // mid Y reverse
+      if(move == -1*(MY+mid+1)){
+        moveBuffer.remove(0);
+      }
+      // mid Z
+      if(move == MZ+mid+1){
+        moveBuffer.remove(0);
+      }
+      // mid Z reverse
+      if(move == -1*(MZ+mid+1)){
+        moveBuffer.remove(0);
+      }
     }
   }
   
