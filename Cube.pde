@@ -39,7 +39,6 @@ class Cube {
       // up
       if(move == U+1){
         int[] center = {4,3,4};
-        //moving = append(center,-1);
         int [][] corners = {{0,3,0},{0,3,2},{2,3,2},{2,3,0}};
         int [][] edges = {{1,3,0},{0,3,1},{1,3,2},{2,3,1}};
         boolean stop = move_(Z, -1, center, corners, edges);
@@ -48,7 +47,6 @@ class Cube {
       // up reverse
       if(move == -1*(U+1)){
         int [] center = {4,3,4};
-        //moving = append(center,1);
         int [][] corners = {{0,3,0},{2,3,0},{2,3,2},{0,3,2}};
         int [][] edges = {{1,3,0},{2,3,1},{1,3,2},{0,3,1}};
         boolean stop = move_(Z, 1, center, corners, edges);
@@ -57,7 +55,6 @@ class Cube {
       // down
       if(move == D+1){
         int[] center = {4,5,4};
-        //moving = append(center,-1);
         int [][] corners = {{0,5,0},{0,5,2},{2,5,2},{2,5,0}};
         int [][] edges = {{1,5,0},{0,5,1},{1,5,2},{2,5,1}};
         boolean stop = move_(Z, -1, center, corners, edges);
@@ -66,7 +63,6 @@ class Cube {
       // down reverse
       if(move == -1*(D+1)){
         int [] center = {4,5,4};
-        //moving = append(center,1);
         int [][] corners = {{0,5,0},{2,5,0},{2,5,2},{0,5,2}};
         int [][] edges = {{1,5,0},{2,5,1},{1,5,2},{0,5,1}};
         boolean stop = move_(Z, 1, center, corners, edges);
@@ -138,6 +134,7 @@ class Cube {
       }
       // mid X
       if(move == MX+mid+1){
+        
         moveBuffer.remove(0);
       }
       // mid X reverse
@@ -154,11 +151,19 @@ class Cube {
       }
       // mid Z
       if(move == MZ+mid+1){
-        moveBuffer.remove(0);
+        int[] center = {4,6,4};
+        int [][] corners = {{0,6,0},{0,6,2},{2,6,2},{2,6,0}};
+        int [][] edges = {{1,6,0},{0,6,1},{1,6,2},{2,6,1}};
+        boolean stop = move_(Z, -1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
       }
       // mid Z reverse
       if(move == -1*(MZ+mid+1)){
-        moveBuffer.remove(0);
+        int[] center = {4,6,4};
+        int [][] corners = {{0,6,0},{0,6,2},{2,6,2},{2,6,0}};
+        int [][] edges = {{1,6,0},{0,6,1},{1,6,2},{2,6,1}};
+        boolean stop = move_(Z, 1, center, corners, edges);
+        if(stop)moveBuffer.remove(0);
       }
     }
   }
@@ -177,10 +182,11 @@ class Cube {
     //  edges[3] = edges[1];
     //  reversed = true;
     //}
-    int [] val = new int[6];
+    int [] val = new int[7];
     val[3] = 0;
     val[4] = (dim-1)/2;
     val[5] = (dim-1);
+    val[6] = mid+1;
     // center
     if(dim%2 != 0 ){
       Cuboid center1 = cubies[val[center[0]]][val[center[1]]][val[center[2]]];
@@ -200,14 +206,7 @@ class Cube {
       stop = corner1.place_ptr.keyMove(axe, turn, corner2.posT);
       stop = corner2.place_ptr.keyMove(axe, turn, corner3.posT);
       stop = corner3.place_ptr.keyMove(axe, turn, corner0.posT);
-      //print(i);println(stop);
-      //print(i);print(corner0.posT[0],corner0.posT[1],corner0.posT[2]);print(corner0.place_ptr.pos);print(corner1.posT[0],corner1.posT[1],corner1.posT[2]);print(" |rotate| (");
-      //print(corner0.place_ptr.rotation[X]);print(corner0.place_ptr.rotation[Y]);print(corner0.place_ptr.rotation[Z]);print(") (");
-      //print(corner1.place_ptr.rotation[X]);print(corner1.place_ptr.rotation[Y]);print(corner1.place_ptr.rotation[Z]);println(") ");
-      //printArray(corner0.colors_face);
       if(stop){
-        //println("stop");
-        
         Cuboid tmp0 = corner0.place_ptr;
         Cuboid tmp1 = corner1.place_ptr;
         Cuboid tmp2 = corner2.place_ptr;
@@ -216,7 +215,6 @@ class Cube {
         corner3.place_ptr = tmp2;
         corner2.place_ptr = tmp1;
         corner1.place_ptr = tmp0;
-        //println(corner1.place_ptr.pos);
       }
       // for all edges
       for(int j = i; j < dim-i; j++){
@@ -243,7 +241,6 @@ class Cube {
         }
       }
     }
-    //if(stop)reversed=false;
     return stop;
   }
   

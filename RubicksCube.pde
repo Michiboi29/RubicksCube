@@ -1,10 +1,9 @@
 import peasy.*;
 
 PeasyCam cam;
-//boolean [] keys = new boolean[128];
 
 // dimmentions
-int DIM = 2;
+int DIM = 6;
 float len = 25;
 
 // up, down, face, back, left, right
